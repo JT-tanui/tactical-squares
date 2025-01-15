@@ -20,12 +20,14 @@ const Chessboard = () => {
   const [isWhiteTurn, setIsWhiteTurn] = useState(true);
 
   const handleSquareClick = (row: number, col: number) => {
+    console.log(`Square clicked: row ${row}, col ${col}`);
     const clickedPosition: Position = [row, col];
     const piece = board[row][col];
     
-    // If no square is selected, select this square if it has a piece of the current player's color
     if (!selectedSquare) {
+      // Only allow selecting pieces of the current player's color
       if (piece && (isWhiteTurn === (piece === piece.toUpperCase()))) {
+        console.log(`Selected piece: ${piece}`);
         setSelectedSquare(clickedPosition);
       }
       return;
@@ -41,7 +43,10 @@ const Chessboard = () => {
     const [fromRow, fromCol] = selectedSquare;
     const movingPiece = board[fromRow][fromCol];
     
+    console.log(`Attempting move: ${movingPiece} from [${fromRow},${fromCol}] to [${row},${col}]`);
+    
     if (isValidMove(movingPiece, selectedSquare, clickedPosition, board)) {
+      console.log('Move is valid');
       const newBoard = board.map(row => [...row]);
       newBoard[row][col] = movingPiece;
       newBoard[fromRow][fromCol] = "";
@@ -50,6 +55,7 @@ const Chessboard = () => {
       setSelectedSquare(null);
       setIsWhiteTurn(!isWhiteTurn);
     } else {
+      console.log('Move is invalid');
       // If the move is invalid and clicking another piece of the same color, select that piece instead
       if (piece && (isWhiteTurn === (piece === piece.toUpperCase()))) {
         setSelectedSquare(clickedPosition);
@@ -81,36 +87,42 @@ const Chessboard = () => {
         </Select>
       </div>
       
-      <div className="w-full max-w-2xl mx-auto aspect-square">
+      <div className="w-full max-w-2xl mx-auto aspect-square border border-gray-200 rounded-lg overflow-hidden">
         <div className="grid grid-cols-8 h-full">
           {board.map((row, rowIndex) =>
             row.map((piece, colIndex) => (
               <div
                 key={`${rowIndex}-${colIndex}`}
                 className={`
-                  flex items-center justify-center text-3xl
+                  flex items-center justify-center text-4xl cursor-pointer
                   ${(rowIndex + colIndex) % 2 === 0 
-                    ? `bg-[${currentTheme.lightSquare}]` 
-                    : `bg-[${currentTheme.darkSquare}]`}
+                    ? `bg-chess-${currentTheme.id}-light` 
+                    : `bg-chess-${currentTheme.id}-dark`}
                   ${selectedSquare && 
                     selectedSquare[0] === rowIndex && 
                     selectedSquare[1] === colIndex
-                    ? `ring-2 ring-[${currentTheme.accent}]`
-                    : ""}
-                  cursor-pointer
+                    ? `ring-2 ring-chess-${currentTheme.id}-accent`
+                    : ''}
                   hover:opacity-90
-                  transition-opacity
+                  transition-all duration-200
                 `}
                 onClick={() => handleSquareClick(rowIndex, colIndex)}
               >
-                {getPieceSymbol(piece, currentTheme.pieces)}
+                {piece && (
+                  <span className={`
+                    ${piece === piece.toUpperCase() ? 'text-gray-900' : 'text-gray-700'}
+                    transform hover:scale-110 transition-transform duration-200
+                  `}>
+                    {getPieceSymbol(piece, currentTheme.pieces)}
+                  </span>
+                )}
               </div>
             ))
           )}
         </div>
       </div>
       
-      <div className="text-center text-chess-secondary">
+      <div className="text-center text-lg font-semibold">
         {isWhiteTurn ? "White's turn" : "Black's turn"}
       </div>
     </div>
