@@ -1,92 +1,124 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Slider } from "@/components/ui/slider";
+import { Input } from "@/components/ui/input";
 import Navigation from "@/components/Navigation";
-import { Users, Trophy, Timer, Medal } from "lucide-react";
+import { Users, Trophy, Timer, Medal, Brain, MessageCircle } from "lucide-react";
 import Chessboard from "@/components/Chessboard";
+import { useState } from "react";
 
 const Play = () => {
+  const [aiDifficulty, setAiDifficulty] = useState(1500);
+  const [timeControl, setTimeControl] = useState("rapid");
+  const [showCoaching, setShowCoaching] = useState(true);
+
   return (
     <div className="min-h-screen bg-chess-primary">
       <main className="container mx-auto px-4 py-8 pb-24">
         <header className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-chess-light mb-2">Play Online</h1>
-          <p className="text-chess-secondary">Challenge players from around the world</p>
+          <h1 className="text-4xl font-bold text-chess-light mb-2">Play Chess</h1>
+          <p className="text-chess-secondary">Challenge the AI or play with friends</p>
         </header>
 
-        <div className="mb-8">
-          <Chessboard />
-        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Main game area */}
+          <div className="lg:col-span-2 space-y-6">
+            <Card className="bg-chess-dark border-chess-accent">
+              <CardHeader>
+                <CardTitle className="text-chess-light flex items-center gap-2">
+                  <Brain className="h-5 w-5" />
+                  Game Settings
+                </CardTitle>
+                <CardDescription className="text-chess-secondary">Customize your game experience</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <label className="text-chess-light block mb-2">AI Difficulty: {aiDifficulty} ELO</label>
+                  <Slider
+                    value={[aiDifficulty]}
+                    onValueChange={(value) => setAiDifficulty(value[0])}
+                    max={2500}
+                    min={800}
+                    step={100}
+                    className="w-full"
+                  />
+                </div>
+                <div className="grid grid-cols-3 gap-2">
+                  {["bullet", "blitz", "rapid", "classical"].map((control) => (
+                    <button
+                      key={control}
+                      onClick={() => setTimeControl(control)}
+                      className={`p-2 rounded capitalize ${
+                        timeControl === control
+                          ? "bg-chess-accent text-chess-dark"
+                          : "bg-chess-primary text-chess-light hover:bg-chess-accent/80"
+                      }`}
+                    >
+                      {control}
+                    </button>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Card className="bg-chess-dark border-chess-accent">
-            <CardHeader>
-              <CardTitle className="text-chess-light flex items-center gap-2">
-                <Users className="h-5 w-5" />
-                Quick Match
-              </CardTitle>
-              <CardDescription className="text-chess-secondary">Find opponents at your level</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2 text-chess-secondary">
-                <button className="w-full p-2 rounded bg-chess-primary hover:bg-chess-accent transition-colors">Casual Match</button>
-                <button className="w-full p-2 rounded bg-chess-primary hover:bg-chess-accent transition-colors">Rated Match</button>
-                <button className="w-full p-2 rounded bg-chess-primary hover:bg-chess-accent transition-colors">Tournament Play</button>
-              </div>
-            </CardContent>
-          </Card>
+            <div className="w-full aspect-square max-w-3xl mx-auto">
+              <Chessboard />
+            </div>
+          </div>
 
-          <Card className="bg-chess-dark border-chess-accent">
-            <CardHeader>
-              <CardTitle className="text-chess-light flex items-center gap-2">
-                <Timer className="h-5 w-5" />
-                Time Controls
-              </CardTitle>
-              <CardDescription className="text-chess-secondary">Choose your game pace</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2 text-chess-secondary">
-                <button className="w-full p-2 rounded bg-chess-primary hover:bg-chess-accent transition-colors">Bullet (1 min)</button>
-                <button className="w-full p-2 rounded bg-chess-primary hover:bg-chess-accent transition-colors">Blitz (5 min)</button>
-                <button className="w-full p-2 rounded bg-chess-primary hover:bg-chess-accent transition-colors">Rapid (10 min)</button>
-                <button className="w-full p-2 rounded bg-chess-primary hover:bg-chess-accent transition-colors">Classical (30 min)</button>
-              </div>
-            </CardContent>
-          </Card>
+          {/* Sidebar */}
+          <div className="space-y-6">
+            <Card className="bg-chess-dark border-chess-accent">
+              <CardHeader>
+                <CardTitle className="text-chess-light flex items-center gap-2">
+                  <MessageCircle className="h-5 w-5" />
+                  AI Coach
+                </CardTitle>
+                <CardDescription className="text-chess-secondary">Real-time analysis and suggestions</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4 text-chess-secondary">
+                  <div className="p-3 bg-chess-primary rounded">
+                    <p className="font-semibold mb-1">Current Position:</p>
+                    <p>Equal position with slight advantage for white</p>
+                  </div>
+                  <div className="p-3 bg-chess-primary rounded">
+                    <p className="font-semibold mb-1">Suggested Move:</p>
+                    <p>Consider e4 to control the center</p>
+                  </div>
+                  <div className="p-3 bg-chess-primary rounded">
+                    <p className="font-semibold mb-1">Key Threats:</p>
+                    <p>Watch out for the exposed king side</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
 
-          <Card className="bg-chess-dark border-chess-accent">
-            <CardHeader>
-              <CardTitle className="text-chess-light flex items-center gap-2">
-                <Trophy className="h-5 w-5" />
-                Tournaments
-              </CardTitle>
-              <CardDescription className="text-chess-secondary">Compete in events</CardDescription>
-            </CardHeader>
-            <CardContent className="text-chess-secondary">
-              <ul className="space-y-2">
-                <li>• Daily tournaments</li>
-                <li>• Weekly championships</li>
-                <li>• Special events</li>
-                <li>• Prize tournaments</li>
-              </ul>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-chess-dark border-chess-accent">
-            <CardHeader>
-              <CardTitle className="text-chess-light flex items-center gap-2">
-                <Medal className="h-5 w-5" />
-                Leaderboards
-              </CardTitle>
-              <CardDescription className="text-chess-secondary">Track your rankings</CardDescription>
-            </CardHeader>
-            <CardContent className="text-chess-secondary">
-              <ul className="space-y-2">
-                <li>• Global rankings</li>
-                <li>• Regional rankings</li>
-                <li>• Rating categories</li>
-                <li>• Tournament standings</li>
-              </ul>
-            </CardContent>
-          </Card>
+            <Card className="bg-chess-dark border-chess-accent">
+              <CardHeader>
+                <CardTitle className="text-chess-light flex items-center gap-2">
+                  <Trophy className="h-5 w-5" />
+                  Game Stats
+                </CardTitle>
+                <CardDescription className="text-chess-secondary">Current game information</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2 text-chess-secondary">
+                  <div className="flex justify-between">
+                    <span>Move Count:</span>
+                    <span>15</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Time Remaining:</span>
+                    <span>5:30</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Position Score:</span>
+                    <span>+0.5</span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </main>
       <Navigation />
