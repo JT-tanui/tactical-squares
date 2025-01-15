@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Target, BookOpen, Play, BarChart2 } from "lucide-react";
+import { Target, BookOpen, Play, User } from "lucide-react";
 
 const Navigation = () => {
   return (
@@ -10,7 +10,7 @@ const Navigation = () => {
           <NavItem to="/learn" icon={<BookOpen />} label="Learn" />
           <NavItem to="/practice" icon={<Target />} label="Practice" />
           <NavItem to="/play" icon={<Play />} label="Play" />
-          <NavItem to="/analyze" icon={<BarChart2 />} label="Analyze" />
+          <NavItem to="/profile" icon={<User />} label="Profile" />
         </div>
       </div>
     </nav>
