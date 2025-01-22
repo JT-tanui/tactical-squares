@@ -25,7 +25,6 @@ const Chessboard = () => {
     const piece = board[row][col];
     
     if (!selectedSquare) {
-      // Only allow selecting pieces of the current player's color
       if (piece && (isWhiteTurn === (piece === piece.toUpperCase()))) {
         console.log(`Selected piece: ${piece}`);
         setSelectedSquare(clickedPosition);
@@ -33,13 +32,11 @@ const Chessboard = () => {
       return;
     }
     
-    // If clicking the same square, deselect it
     if (selectedSquare[0] === row && selectedSquare[1] === col) {
       setSelectedSquare(null);
       return;
     }
     
-    // Try to move the piece
     const [fromRow, fromCol] = selectedSquare;
     const movingPiece = board[fromRow][fromCol];
     
@@ -56,7 +53,6 @@ const Chessboard = () => {
       setIsWhiteTurn(!isWhiteTurn);
     } else {
       console.log('Move is invalid');
-      // If the move is invalid and clicking another piece of the same color, select that piece instead
       if (piece && (isWhiteTurn === (piece === piece.toUpperCase()))) {
         setSelectedSquare(clickedPosition);
       } else {
@@ -87,42 +83,44 @@ const Chessboard = () => {
         </Select>
       </div>
       
-      <div className="w-full max-w-2xl mx-auto aspect-square border border-gray-200 rounded-lg overflow-hidden">
-        <div className="grid grid-cols-8 h-full">
-          {board.map((row, rowIndex) =>
-            row.map((piece, colIndex) => (
-              <div
-                key={`${rowIndex}-${colIndex}`}
-                className={`
-                  flex items-center justify-center text-4xl cursor-pointer
-                  ${(rowIndex + colIndex) % 2 === 0 
-                    ? `bg-chess-${currentTheme.id}-light` 
-                    : `bg-chess-${currentTheme.id}-dark`}
-                  ${selectedSquare && 
-                    selectedSquare[0] === rowIndex && 
-                    selectedSquare[1] === colIndex
-                    ? `ring-2 ring-chess-${currentTheme.id}-accent`
-                    : ''}
-                  hover:opacity-90
-                  transition-all duration-200
-                `}
-                onClick={() => handleSquareClick(rowIndex, colIndex)}
-              >
-                {piece && (
-                  <span className={`
-                    ${piece === piece.toUpperCase() ? 'text-gray-900' : 'text-gray-700'}
-                    transform hover:scale-110 transition-transform duration-200
-                  `}>
-                    {getPieceSymbol(piece, currentTheme.pieces)}
-                  </span>
-                )}
-              </div>
-            ))
-          )}
+      <div className="w-full max-w-2xl mx-auto p-8 bg-chess-primary rounded-xl shadow-2xl">
+        <div className="aspect-square border-4 border-chess-accent rounded-lg overflow-hidden shadow-lg">
+          <div className="grid grid-cols-8 h-full">
+            {board.map((row, rowIndex) =>
+              row.map((piece, colIndex) => (
+                <div
+                  key={`${rowIndex}-${colIndex}`}
+                  className={`
+                    flex items-center justify-center text-4xl cursor-pointer
+                    ${(rowIndex + colIndex) % 2 === 0 
+                      ? `bg-chess-${currentTheme.id}-light` 
+                      : `bg-chess-${currentTheme.id}-dark`}
+                    ${selectedSquare && 
+                      selectedSquare[0] === rowIndex && 
+                      selectedSquare[1] === colIndex
+                      ? `ring-2 ring-chess-${currentTheme.id}-accent`
+                      : ''}
+                    hover:opacity-90
+                    transition-all duration-200
+                  `}
+                  onClick={() => handleSquareClick(rowIndex, colIndex)}
+                >
+                  {piece && (
+                    <span className={`
+                      ${piece === piece.toUpperCase() ? 'text-gray-900' : 'text-gray-700'}
+                      transform hover:scale-110 transition-transform duration-200
+                    `}>
+                      {getPieceSymbol(piece, currentTheme.pieces)}
+                    </span>
+                  )}
+                </div>
+              ))
+            )}
+          </div>
         </div>
       </div>
       
-      <div className="text-center text-lg font-semibold">
+      <div className="text-center text-lg font-semibold text-chess-light">
         {isWhiteTurn ? "White's turn" : "Black's turn"}
       </div>
     </div>
