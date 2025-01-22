@@ -12,27 +12,27 @@ const Play = () => {
   const [showCoaching, setShowCoaching] = useState(true);
 
   return (
-    <div className="min-h-screen bg-chess-primary">
+    <div className="min-h-screen bg-[#1A1F2C]">
       <main className="container mx-auto px-4 py-8 pb-24">
         <header className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-chess-light mb-2">Play Chess</h1>
-          <p className="text-chess-secondary">Challenge the AI or play with friends</p>
+          <h1 className="text-4xl font-bold text-white mb-2">Play Chess</h1>
+          <p className="text-gray-300">Challenge the AI or play with friends</p>
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Main game area */}
           <div className="lg:col-span-2 space-y-6">
-            <Card className="bg-chess-dark border-chess-accent">
+            <Card className="bg-[#222222] border-[#333333]">
               <CardHeader>
-                <CardTitle className="text-chess-light flex items-center gap-2">
+                <CardTitle className="text-white flex items-center gap-2">
                   <Brain className="h-5 w-5" />
                   Game Settings
                 </CardTitle>
-                <CardDescription className="text-chess-secondary">Customize your game experience</CardDescription>
+                <CardDescription className="text-gray-400">Customize your game experience</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <label className="text-chess-light block mb-2">AI Difficulty: {aiDifficulty} ELO</label>
+                  <label className="text-white block mb-2">AI Difficulty: {aiDifficulty} ELO</label>
                   <Slider
                     value={[aiDifficulty]}
                     onValueChange={(value) => setAiDifficulty(value[0])}
@@ -49,8 +49,8 @@ const Play = () => {
                       onClick={() => setTimeControl(control)}
                       className={`p-2 rounded capitalize ${
                         timeControl === control
-                          ? "bg-chess-accent text-chess-dark"
-                          : "bg-chess-primary text-chess-light hover:bg-chess-accent/80"
+                          ? "bg-blue-500 text-white"
+                          : "bg-[#333333] text-gray-300 hover:bg-[#444444]"
                       }`}
                     >
                       {control}
@@ -60,32 +60,32 @@ const Play = () => {
               </CardContent>
             </Card>
 
-            <div className="w-full aspect-square max-w-3xl mx-auto">
+            <div className="w-full aspect-square max-w-3xl mx-auto bg-[#F1F1F1] p-6 rounded-xl">
               <Chessboard />
             </div>
           </div>
 
           {/* Sidebar */}
           <div className="space-y-6">
-            <Card className="bg-chess-dark border-chess-accent">
+            <Card className="bg-[#222222] border-[#333333]">
               <CardHeader>
-                <CardTitle className="text-chess-light flex items-center gap-2">
+                <CardTitle className="text-white flex items-center gap-2">
                   <MessageCircle className="h-5 w-5" />
                   AI Coach
                 </CardTitle>
-                <CardDescription className="text-chess-secondary">Real-time analysis and suggestions</CardDescription>
+                <CardDescription className="text-gray-400">Real-time analysis and suggestions</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4 text-chess-secondary">
-                  <div className="p-3 bg-chess-primary rounded">
+                <div className="space-y-4 text-gray-300">
+                  <div className="p-3 bg-[#333333] rounded">
                     <p className="font-semibold mb-1">Current Position:</p>
                     <p>Equal position with slight advantage for white</p>
                   </div>
-                  <div className="p-3 bg-chess-primary rounded">
+                  <div className="p-3 bg-[#333333] rounded">
                     <p className="font-semibold mb-1">Suggested Move:</p>
                     <p>Consider e4 to control the center</p>
                   </div>
-                  <div className="p-3 bg-chess-primary rounded">
+                  <div className="p-3 bg-[#333333] rounded">
                     <p className="font-semibold mb-1">Key Threats:</p>
                     <p>Watch out for the exposed king side</p>
                   </div>
@@ -93,16 +93,16 @@ const Play = () => {
               </CardContent>
             </Card>
 
-            <Card className="bg-chess-dark border-chess-accent">
+            <Card className="bg-[#222222] border-[#333333]">
               <CardHeader>
-                <CardTitle className="text-chess-light flex items-center gap-2">
+                <CardTitle className="text-white flex items-center gap-2">
                   <Trophy className="h-5 w-5" />
                   Game Stats
                 </CardTitle>
-                <CardDescription className="text-chess-secondary">Current game information</CardDescription>
+                <CardDescription className="text-gray-400">Current game information</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="space-y-2 text-chess-secondary">
+                <div className="space-y-2 text-gray-300">
                   <div className="flex justify-between">
                     <span>Move Count:</span>
                     <span>15</span>
