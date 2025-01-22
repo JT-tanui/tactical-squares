@@ -6,8 +6,7 @@ import Chessboard from "@/components/Chessboard";
 const Practice = () => {
   return (
     <div className="min-h-screen bg-chess-primary">
-      <Navigation />
-      <main className="md:ml-64 container mx-auto px-4 py-8 pb-24">
+      <main className="container mx-auto px-4 py-8 pb-24">
         <header className="text-center mb-8">
           <h1 className="text-4xl font-bold text-chess-light mb-2">Practice Mode</h1>
           <p className="text-chess-secondary">Improve your game against AI opponents</p>
@@ -91,6 +90,7 @@ const Practice = () => {
           </Card>
         </div>
       </main>
+      <Navigation />
     </div>
   );
 };

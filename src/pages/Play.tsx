@@ -1,5 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
+import { Input } from "@/components/ui/input";
 import Navigation from "@/components/Navigation";
 import { Users, Trophy, Timer, Medal, Brain, MessageCircle } from "lucide-react";
 import Chessboard from "@/components/Chessboard";
@@ -12,8 +13,7 @@ const Play = () => {
 
   return (
     <div className="min-h-screen bg-chess-primary">
-      <Navigation />
-      <main className="md:ml-64 container mx-auto px-4 py-8 pb-24">
+      <main className="container mx-auto px-4 py-8 pb-24">
         <header className="text-center mb-8">
           <h1 className="text-4xl font-bold text-chess-light mb-2">Play Chess</h1>
           <p className="text-chess-secondary">Challenge the AI or play with friends</p>
@@ -121,6 +121,7 @@ const Play = () => {
           </div>
         </div>
       </main>
+      <Navigation />
     </div>
   );
 };
