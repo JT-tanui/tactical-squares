@@ -1,11 +1,12 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Navigation from "@/components/Navigation";
-import { User, Trophy, Activity, History, Brain, Target } from "lucide-react";
+import { User, Trophy, Activity, History, Brain } from "lucide-react";
 
 const Profile = () => {
   return (
     <div className="min-h-screen bg-chess-primary">
-      <main className="container mx-auto px-4 py-8 pb-24">
+      <Navigation />
+      <main className="md:ml-64 container mx-auto px-4 py-8 pb-24">
         <header className="text-center mb-8">
           <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-chess-dark border-4 border-chess-accent flex items-center justify-center">
             <User className="w-12 h-12 text-chess-light" />
@@ -136,7 +137,6 @@ const Profile = () => {
           </Card>
         </div>
       </main>
-      <Navigation />
     </div>
   );
 };

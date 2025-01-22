@@ -20,12 +20,11 @@ export default {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         chess: {
-          primary: "#1E293B",
-          secondary: "#E2E8F0",
+          primary: "#1A1F2C",
+          secondary: "#C8C8C9",
           accent: "#FCD34D",
-          light: "#F8FAFC",
-          dark: "#0F172A",
-          // Theme colors
+          light: "#F1F1F1",
+          dark: "#221F26",
           classic: {
             light: "#F0D9B5",
             dark: "#B58863",
@@ -36,6 +35,11 @@ export default {
             dark: "#4B7399",
             accent: "#5BA7D7",
           },
+          darkula: {
+            light: "#555555",
+            dark: "#222222",
+            accent: "#C8C8C9",
+          },
           forest: {
             light: "#FFFFDD",
             dark: "#86A666",
@@ -45,17 +49,7 @@ export default {
             light: "#E8EDF9",
             dark: "#4A4A4A",
             accent: "#7FA1E8",
-          },
-          coral: {
-            light: "#FFF0E6",
-            dark: "#FB8F67",
-            accent: "#FFB4A2",
-          },
-          neon: {
-            light: "#2C2C2C",
-            dark: "#1A1A1A",
-            accent: "#00FF9F",
-          },
+          }
         },
         primary: {
           DEFAULT: "hsl(var(--primary))",
